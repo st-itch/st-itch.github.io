@@ -1,4 +1,5 @@
 body {
+    background-color: #000;
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -8,7 +9,8 @@ body {
     justify-content: center;
 }
 
-img {
+img, video {
     max-height: 100vh;
     max-width: 100%;
 }
+
