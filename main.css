@@ -20,8 +20,9 @@ body {
 
 body#scanner {
     font-family: coders_cruxregular, courier;
-    flex-direction: column;
     color: #f6e4b9;
+    /*flex-direction: column;*/
+    display: block;
 }
 
 img, video {
@@ -74,9 +75,11 @@ img, video {
 }
 
 #video-preview {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 320px;
-    height: 240px;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*width: 320px;*/
+    /*height: 240px;*/
+    max-height: none;
+    max-width: none;
 }

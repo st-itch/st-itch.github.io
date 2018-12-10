@@ -1,7 +1,8 @@
 window.onload =  function() {
     /* Ask for "environnement" (rear) camera if available (mobile), will fallback to only available otherwise (desktop).
      * User will be prompted if (s)he allows camera to be started */
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment", width: 320, height: 240 }, audio: false }).then(function(stream) {
+    //navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false }).then(function(stream) {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment", width: 320, height: 320 }, audio: false }).then(function(stream) {
 	var video = document.getElementById("video-preview");
 	video.srcObject = stream;
 	video.setAttribute("playsinline", true); /* otherwise iOS safari starts fullscreen */
@@ -19,9 +20,12 @@ function tick() {
     var width, height;
 
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
-	qrCanvasElement.height  = 200;
-	qrCanvasElement.width   = 200;
-	qrCanvas.drawImage(video, 60, 20, 200, 200, 0, 0, 200, 200);
+	//qrCanvasElement.height  = 200;
+	//qrCanvasElement.width   = 200;
+	//qrCanvas.drawImage(video, 60, 20, 200, 200, 0, 0, 200, 200);
+	qrCanvasElement.height  = video.videoHeight;
+	qrCanvasElement.width   = video.videoWidth;
+	qrCanvas.drawImage(video, 0, 0, qrCanvasElement.width, qrCanvasElement.height);
 	try {
 	    var result = qrcode.decode();
 	    if(result.indexOf("st-itch.com") !== -1) {
