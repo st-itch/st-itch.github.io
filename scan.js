@@ -1,7 +1,7 @@
 window.onload =  function() {
     /* Ask for "environnement" (rear) camera if available (mobile), will fallback to only available otherwise (desktop).
      * User will be prompted if (s)he allows camera to be started */
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false }).then(function(stream) {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment", width: 320, height: 240 }, audio: false }).then(function(stream) {
 	var video = document.getElementById("video-preview");
 	video.srcObject = stream;
 	video.setAttribute("playsinline", true); /* otherwise iOS safari starts fullscreen */
@@ -19,25 +19,20 @@ function tick() {
     var width, height;
 
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
-	qrCanvasElement.height  = video.videoHeight;
-	qrCanvasElement.width   = video.videoWidth;
-	qrCanvas.drawImage(video, 0, 0, qrCanvasElement.width, qrCanvasElement.height);
+	qrCanvasElement.height  = 200;
+	qrCanvasElement.width   = 200;
+	qrCanvas.drawImage(video, 60, 20, 200, 200, 0, 0, 200, 200);
 	try {
 	    var result = qrcode.decode();
-	    var URLSplit = result.split("//");
-	    console.log(URLSplit);
-	    var fixedURL = result;
-	    if(URLSplit.length == 3 && URLSplit[1] == "http:") {
-		fixedURL = URLSplit[0] + "//" + URLSplit[2];
-	    }
-	    console.log(result);
-	    console.log(fixedURL);
-
-	    var domain = URLSplit.length == 3 ? URLSplit[2].split("/")[0] : URLSplit[1].split("/")[0];
-	    if(domain == "st-itch.com") {
-		window.location.href = fixedURL;
+	    if(result.indexOf("st-itch.com") !== -1) {
+		var splitURL = result.split("m/");
+		if(splitURL.length > 1) {
+		    window.location.href = "https://st-itch.com/" + splitURL[1];
+		} else {
+		    console.log("Invalid QR code");
+		}
 	    } else {
-		alert("Sorry, this is only for st-itch.com");
+		console.log("Sorry, this is only for st-itch.com");
 	    }
 
 	    /* Video can now be stopped */
