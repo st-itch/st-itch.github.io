@@ -24,7 +24,22 @@ function tick() {
 	qrCanvas.drawImage(video, 0, 0, qrCanvasElement.width, qrCanvasElement.height);
 	try {
 	    var result = qrcode.decode();
-	    console.log(result)
+	    var URLSplit = result.split("//");
+	    console.log(URLSplit);
+	    var fixedURL = result;
+	    if(URLSplit.length == 3 && URLSplit[1] == "http:") {
+		fixedURL = URLSplit[0] + "//" + URLSplit[2];
+	    }
+	    console.log(result);
+	    console.log(fixedURL);
+
+	    var domain = URLSplit.length == 3 ? URLSplit[2].split("/")[0] : URLSplit[1].split("/")[0];
+	    if(domain == "st-itch.com") {
+		window.location.href = fixedURL;
+	    } else {
+		alert("Sorry, this is only for st-itch.com");
+	    }
+
 	    /* Video can now be stopped */
 	    video.pause();
 	    video.src = "";

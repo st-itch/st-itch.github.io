@@ -18,6 +18,12 @@ body {
     justify-content: center;
 }
 
+body#scanner {
+    font-family: coders_cruxregular, courier;
+    flex-direction: column;
+    color: #f6e4b9;
+}
+
 img, video {
     max-height: 100vh;
     max-width: 100%;
@@ -42,3 +48,10 @@ img, video {
 	/*font-size: 28px;*/
     /*}*/
 /*}*/
+
+.hidden {
+    display: none;
+}
+
+#video-container {
+}
